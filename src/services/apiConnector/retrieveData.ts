@@ -3,8 +3,8 @@ import config from 'config'
 
 // Use this in order to get data once (and dont use up the request limit!) --> Saved in data/data.json
 export const fetchLatestCryptoListings = async () => {
-    const apiKey: string = config.get('API_KEY')
-    const url: string = `${config.get('COIN_CAP_BASE_URL')}/cryptocurrency/listings/latest`
+    const apiKey: string = config.get('COIN_CAP.API_KEY')
+    const url: string = `${config.get('COIN_CAP.BASE_URL')}/cryptocurrency/listings/latest`
     const params: string = '?start=1&limit=5000&convert=EUR'
 
     try {
