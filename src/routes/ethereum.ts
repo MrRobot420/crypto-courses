@@ -5,12 +5,11 @@ const ethereumRouter = express.Router()
 import { getWalletInformation } from '../services/apiConnector/ethereum'
 
 
-ethereumRouter.get('/test-eth', async (req, res): Promise<object> => {
+ethereumRouter.get('/get-eth-balance', async (req, res): Promise<object> => {
     const { address } = req.body
 
     if (address) {
         console.log('using provided address...');
-        
         const data = await getWalletInformation(address)
         return res.status(200).send(data)
     }
