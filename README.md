@@ -1,5 +1,15 @@
-# Documentation for Lunar Crush API and my take on implementation:
+# Documentation for this Crypto Analysis API:
 
-### See:
+## Used Resources:
 
-https://lunarcrush.com/developers/docs
+### 1. Coin Market Cap (API)
+
+https://pro.coinmarketcap.com/account
+and
+https://coinmarketcap.com/api/documentation/v1/
+
+Endpoints:
+
+```
+"COIN_CAP_BASE_URL": "https://pro-api.coinmarketcap.com/v1"
+```
