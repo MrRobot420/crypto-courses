@@ -4,8 +4,10 @@ const ethereumRouter = express.Router()
 
 import { getWalletInformation } from '../services/apiConnector/ethereum'
 
+
 ethereumRouter.get('/test-eth', async (req, res): Promise<object> => {
     const { address } = req.body
+
     if (address) {
         console.log('using provided address...');
         
