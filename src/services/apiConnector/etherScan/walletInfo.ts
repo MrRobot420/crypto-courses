@@ -12,7 +12,7 @@ type balanceObject = {
     result: string
 }
 
-export const getWalletInformation = async (address: string): Promise<balanceObject> => {
+export const getBalanceForAddress = async (address: string): Promise<balanceObject> => {
     const query = `${BASE_URL}?module=account&action=balance&address=${address}&apiKey=${API_KEY}`
     const result = await axios.get(query)
     result.data.result = formatEtherResponse(result.data.result)
