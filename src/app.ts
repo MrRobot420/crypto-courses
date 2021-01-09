@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import config from 'config'
 import routes from './routes'
-import { initWebSocketClient, manageWebSocket } from './websocket'
+import { initWebSocketClient, manageWebSocket } from './services/websocket'
 
 
 const app = express()
