@@ -43,3 +43,57 @@ Result: 459838634268989921207998
 4595456374254502385669   =   4,595.46374... ETH
 459838634268989921207998 = 459,838.63426... ETH
 ```
+
+---
+
+# Live Courses:
+
+### Better Option:
+
+wss://ws.bitstamp.net
+
+USE WEBSOCKETS!!
+
+---
+
+### Alternative: HTTP Calls to bitstamp.net ----- API
+
+#### WARNING:
+
+REQUEST LIMITS:
+Do not make more than 8000 requests per 10 minutes or we will ban your IP address. For real time data please refer to the websocket API.
+
+#### EUR
+
+```
+# Ripple
+https://www.bitstamp.net/api/v2/ticker/xrpeur
+```
+
+```
+# Bitcoin
+https://www.bitstamp.net/api/v2/ticker/btceur
+```
+
+```
+# Litecoin
+https://www.bitstamp.net/api/v2/ticker/ltceur
+```
+
+```
+# Ethereum
+https://www.bitstamp.net/api/v2/ticker/etheur
+```
+
+```
+# BTC-Cash
+https://www.bitstamp.net/api/v2/ticker/bcheur
+```
+
+#### USD
+
+urlXRP_dollar = "https://www.bitstamp.net/api/v2/ticker/xrpusd" # Ripple
+urlBTC_dollar = "https://www.bitstamp.net/api/v2/ticker/btcusd" # Bitcoin
+urlLTC_dollar = "https://www.bitstamp.net/api/v2/ticker/ltcusd" # Litecoin
+urlETH_dollar = "https://www.bitstamp.net/api/v2/ticker/ethusd" # Ethereum
+urlBCH_dollar = "https://www.bitstamp.net/api/v2/ticker/bchusd" # BTC-Cash
