@@ -15,13 +15,17 @@ const manageWebSocket = (ws: WebSocket, currency: string) => {
             }
         }))
     })
-    
+    let lastPrice = 0
     ws.on('message', function incoming(receivedData) {
         const tradeData: TradeData = JSON.parse(receivedData.toString())
         const { data } = tradeData
         
         if (tradeData.event === 'trade') {
-            console.log(`${currency.split('eur')[0].toUpperCase()} Price: \t${data.price} €`)
+            const currentPrice = data.price
+            if (currentPrice !== lastPrice) {
+                console.log(`${currency.split('eur')[0].toUpperCase()} Price: \t${currentPrice.toFixed(2)} €`)
+                lastPrice = currentPrice
+            }
         }
     })
 }
