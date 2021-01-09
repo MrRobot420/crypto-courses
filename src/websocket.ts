@@ -33,13 +33,11 @@ const manageWebSocket = (ws: WebSocket, currency: string) => {
     })
     
     ws.on('message', function incoming(receivedData) {
-        
         const tradeData: TradeData = JSON.parse(receivedData.toString())
-        // console.log(tradeData)
         const { data } = tradeData
         
         if (tradeData.event === 'trade') {
-            console.log(`Current ${currency.toUpperCase()} Price: \t\t${data.price} €`)
+            console.log(`Current ${currency.split('eur')[0].toUpperCase()} Price: \t${data.price} €`)
             console.log()
         }
     })
