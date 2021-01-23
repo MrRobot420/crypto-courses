@@ -1,8 +1,9 @@
 import { Schema, model } from 'mongoose'
+import ICryptoDoc from './cryptoDoc'
 
-const bitcoincashSchema = new Schema({
+const cryptoSchema = new Schema({
     lastUpdated: { type: String },
-    currency: { type: String, default: 'BCH' },
+    currency: { type: String },
     courses: [{
         date: { type: String },
         price: { type: Number },
@@ -10,8 +11,8 @@ const bitcoincashSchema = new Schema({
     }]
 })
 
-const bitcoincashModel = model('bitcoincash', bitcoincashSchema)
+const cryptoModel = model<ICryptoDoc>('cryptoData', cryptoSchema)
 
 export {
-    bitcoincashModel
+    cryptoModel
 } 

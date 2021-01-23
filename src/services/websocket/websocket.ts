@@ -1,5 +1,6 @@
 import WebSocket from 'ws'
 import TradeData from './types'
+import { saveCourse } from '../../storage'
 
 const initWebSocketClient = (url: string): WebSocket => {
     return new WebSocket(url, { perMessageDeflate: false })
@@ -23,7 +24,10 @@ const manageWebSocket = (ws: WebSocket, currency: string) => {
         if (tradeData.event === 'trade') {
             const currentPrice = data.price
             if (currentPrice !== lastPrice) {
-                console.log(`${currency.split('eur')[0].toUpperCase()} Price: \t${currentPrice.toFixed(2)} €`)
+                const currencyName = currency.split('eur')[0].toUpperCase()
+                const timeOfTrade = data.timestamp
+                console.log(`${currencyName} Price: \t${currentPrice.toFixed(2)} €`)
+                saveCourse(currencyName, currentPrice, timeOfTrade)
                 lastPrice = currentPrice
             }
         }
