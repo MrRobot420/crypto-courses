@@ -1,4 +1,4 @@
-import { connect, MongoClient } from 'mongodb'
+import { connect } from 'mongoose'
 
 class Connection  {
     constructor(url: string) {
