@@ -1,6 +1,5 @@
 import express from 'express'
 const tradingRouter = express.Router()
-import ICryptoDoc from '../../storage/models/cryptoDoc'
 
 import { getCourseData } from '../../storage/operations'
 
