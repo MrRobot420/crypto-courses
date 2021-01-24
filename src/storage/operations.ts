@@ -1,5 +1,6 @@
-import { cryptoModel } from './index'
+import { cryptoModel, userTradeModel } from './index'
 import ICryptoDoc from './models/cryptoDoc'
+import { ITradeData } from './models/tradeData'
 
 const getCourseData = async (currency: string): Promise<ICryptoDoc> => {
     try {
@@ -13,20 +14,34 @@ const getCourseData = async (currency: string): Promise<ICryptoDoc> => {
 
 const saveCourse = async (currency: string, price: number, time: string) => {
     const course = { price, date: time, marketplace: 'bitstamp' }
-    const currentData: ICryptoDoc = (await cryptoModel.find({ currency }))[0]
-
-    if (currentData) {
+    const response = await cryptoModel.find({ currency })
+    
+    if (response) {
+        const currentData: ICryptoDoc = response[0]
         const previousCourses = currentData.courses
         previousCourses.push(course)
-        const response = await cryptoModel.findOneAndUpdate({ currency }, { courses: previousCourses }, { useFindAndModify: false })
-        if (response !== null) console.log(`Updated ${currency} course data.\n`);
+        const updateResponse = await cryptoModel.findOneAndUpdate({ currency }, { courses: previousCourses }, { useFindAndModify: false })
+        if (updateResponse !== null) console.log(`Updated ${currency} course data.\n`)
     } else {
-        await cryptoModel.create({currency, courses: [course]})
+        await cryptoModel.create({currency, courses: [ course ]})
     }
 }
 
-const saveTransaction = async (currency: string, price: number, amount: number, userId: string, time: string) => {
-    
+const saveTransaction = async (userId: string, tradeData: ITradeData) => {
+    try {
+        const response = await userTradeModel.find({ userId })
+        if (response) {
+            const currentData = response[0]
+            const previousPurchases = currentData.transactions
+            previousPurchases.push(tradeData)
+            const updateResponse = await userTradeModel.findOneAndUpdate({ userId }, { transactions: previousPurchases })
+            if (updateResponse !== null) console.log(`Updated ${userId}'s transactions.\n`);
+        } else {
+            await userTradeModel.create({ userId, transactions: [ tradeData ]})
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export {
