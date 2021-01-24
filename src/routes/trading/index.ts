@@ -1,3 +1,3 @@
-import tradingRouter from './routes';
+import tradingRouter from './tradeRoutes';
 
 export default tradingRouter
