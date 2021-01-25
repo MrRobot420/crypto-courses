@@ -35,6 +35,10 @@ const calculateAccountValue = async (userId: string) => {
     if (transactionData.message) {
         throw Error(transactionData.message)
     }
+    return assembleAccountInformation(transactionData)
+}
+
+const assembleAccountInformation = (transactionData: any) => {
     const accountInformation = {
         transactionData: [] as ITradeData[],
         value: 0,
