@@ -1,4 +1,4 @@
-import { getCourseData, saveTransaction } from '../../storage/operations'
+import { getCourseData, saveTransaction } from '../../storage'
 
 const buyCurrency = async (currency: string, amount: number, userId: string, baseCurrency: string) => {
     try {
@@ -9,7 +9,7 @@ const buyCurrency = async (currency: string, amount: number, userId: string, bas
         const sum = parseFloat((amount * price).toFixed(2))
     
         await saveTransaction(userId, { currency, price, amount, sum, date, baseCurrency })
-        
+
         const confirmationMessage = `${userId} BOUGHT ${amount} ${currency} at a price of ${price}€. - SUM: ${sum}€`
         console.log(confirmationMessage)
         
