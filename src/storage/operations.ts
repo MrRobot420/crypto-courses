@@ -44,8 +44,23 @@ const saveTransaction = async (userId: string, tradeData: ITradeData) => {
     }
 }
 
+const getTransactions = async (userId: string) => {
+    try {
+        const response = await userTradeModel.find({ userId })
+        if (response) {
+            const transactionData = response[0]
+            return transactionData
+        }
+        return { message: 'ERROR. User not found'}
+    } catch (err) {
+        console.log(err)
+        return { message: 'ERROR. Problem while retrieving transaction data.'}
+    }
+}
+
 export {
     getCourseData,
     saveCourse,
-    saveTransaction
+    saveTransaction,
+    getTransactions
 }
