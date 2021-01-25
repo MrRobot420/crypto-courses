@@ -1,4 +1,5 @@
-import { getCourseData, saveTransaction } from '../../storage'
+import { getCourseData, getTransactions, saveTransaction } from '../../storage'
+import { ITradeData } from '../../storage/models/tradeData'
 
 const buyCurrency = async (currency: string, amount: number, userId: string, baseCurrency: string) => {
     try {
@@ -29,6 +30,27 @@ const buyCurrency = async (currency: string, amount: number, userId: string, bas
     }
 }
 
+const calculateAccountValue = async (userId: string) => {
+    const transactionData = await getTransactions(userId)
+    if (transactionData.message) {
+        throw Error(transactionData.message)
+    }
+    const accountInformation = {
+        transactionData: [] as ITradeData[],
+        value: 0,
+        baseCurrency: ''
+    }
+
+    transactionData.transactions.forEach((ta: ITradeData) => {
+        accountInformation.transactionData.push(ta)
+        accountInformation.value += ta.sum
+        accountInformation.baseCurrency = ta.baseCurrency
+    })
+
+    return accountInformation
+}
+
 export {
-    buyCurrency
+    buyCurrency,
+    calculateAccountValue
 }
