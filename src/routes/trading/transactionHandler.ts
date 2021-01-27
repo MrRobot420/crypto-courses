@@ -92,7 +92,7 @@ const createSummary = (transactionsForCurrency: ITradeData[], currentPrice: numb
     summaryData.summary.averagePriceThen = parseFloat((summaryData.summary.averagePriceThen / transactionsForCurrency.length).toFixed(2))
 
     summaryData.summary.currentValue = parseFloat((currentPrice * summaryData.summary.amount).toFixed(2))
-    summaryData.summary.currentChange = parseFloat((summaryData.summary.currentValue - summaryData.summary.priceWhenBought).toFixed(2))
+    summaryData.summary.currentChange = parseFloat((summaryData.summary.currentValue - summaryData.summary.investment).toFixed(2))
     summaryData.summary.transactionsForCurrency = transactionsForCurrency
 
     return summaryData
