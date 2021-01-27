@@ -1,7 +1,7 @@
 import express from 'express'
 const tradingRouter = express.Router()
 
-import { buyCurrency, calculateAccountValue } from './transactionHandler'
+import { buyCurrency, calculateAccountValue, calculateCurrencyValue } from './transactionHandler'
 
 tradingRouter.post('/buy', async (req, res): Promise<object> => {
     const { currency, amount, userId, baseCurrency } = req.body
@@ -31,6 +31,20 @@ tradingRouter.post('/account-balance', async (req, res): Promise<object> => {
         }
     }
     return res.status(404).send({ error: `ERROR. Need to provide userId.` })
+})
+
+tradingRouter.post('/currency-balance', async (req, res) => {
+    const { userId, currency } = req.body
+
+    if (userId && currency) {
+        try {
+            const currencyData = await calculateCurrencyValue(userId, currency)
+        } catch (err) {
+            console.log(err)
+            return res.status(500).send({ error: `Error while trying to get currency balance of ${currency} from ${userId}.`})
+        }
+    }
+    return res.status(404).send({ error: `ERROR: Need to provide userId and currency.`})
 })
 
 export default tradingRouter
