@@ -1,7 +1,8 @@
 import express from 'express'
 const tradingRouter = express.Router()
 
-import { buyCurrency, calculateAccountValue, calculateCurrencyValue } from './transactionHandler'
+import { buyCurrency } from './transactionHandler'
+import { calculateAccountValue, calculateCurrencyValue } from "./accountData";
 
 tradingRouter.post('/buy', async (req, res): Promise<object> => {
     const { currency, amount, userId, baseCurrency } = req.body
