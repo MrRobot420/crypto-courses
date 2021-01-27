@@ -1,4 +1,5 @@
 import { getCourseData, getTransactions, saveTransaction } from '../../storage'
+import ICryptoDoc from '../../storage/models/cryptoDoc'
 import { ITradeData } from '../../storage/models/tradeData'
 
 const buyCurrency = async (currency: string, amount: number, userId: string, baseCurrency: string) => {
@@ -54,7 +55,47 @@ const assembleAccountInformation = (transactionData: any) => {
     return accountInformation
 }
 
+const calculateCurrencyValue = async (userId: string, currency: string) => {
+    const transactionData = await getTransactions(userId)
+    const courseData: ICryptoDoc = await getCourseData(currency)
+
+    if (transactionData.message) {
+        throw Error(transactionData.message)
+    }
+    return caluclateCurrencyBalance(transactionData, currency, courseData)
+}
+
+const caluclateCurrencyBalance = async (transactionData: any, currency: string, courseData: ICryptoDoc) => {
+    const transactionsForCurrency: ITradeData[] = transactionData.transactions.filter((ta: ITradeData) => ta.currency === currency)
+    const currentPrice = courseData.courses[courseData.courses.length - 1].price
+
+    let summaryData: any = {}
+    summaryData.summary = {
+        baseCurrency: transactionsForCurrency[0].baseCurrency,
+        cryptoCurrency: transactionsForCurrency[0].currency,
+        currentPrice,
+        amount: 0,
+        priceWhenBought: 0,
+    }
+    
+    transactionsForCurrency.forEach(transaction => {
+        summaryData.summary.amount += transaction.amount
+        summaryData.summary.priceWhenBought += transaction.sum
+    })
+
+    summaryData.summary.currentValue = parseFloat((currentPrice * summaryData.summary.amount).toFixed(2))
+    summaryData.summary.currentChange = parseFloat((summaryData.summary.currentValue - summaryData.summary.priceWhenBought).toFixed(2))
+    summaryData.summary.transactionsForCurrency = transactionsForCurrency
+
+    return summaryData
+}
+
+const createSummary = (transactionsForCurrency: ITradeData[], currentPrice: number) => {
+
+}
+
 export {
     buyCurrency,
-    calculateAccountValue
+    calculateAccountValue,
+    calculateCurrencyValue
 }

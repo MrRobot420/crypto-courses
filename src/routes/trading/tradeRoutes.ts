@@ -39,6 +39,7 @@ tradingRouter.post('/currency-balance', async (req, res) => {
     if (userId && currency) {
         try {
             const currencyData = await calculateCurrencyValue(userId, currency)
+            return res.status(200).send(currencyData)
         } catch (err) {
             console.log(err)
             return res.status(500).send({ error: `Error while trying to get currency balance of ${currency} from ${userId}.`})
