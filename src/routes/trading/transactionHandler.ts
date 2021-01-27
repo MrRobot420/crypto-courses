@@ -69,29 +69,33 @@ const caluclateCurrencyBalance = async (transactionData: any, currency: string, 
     const transactionsForCurrency: ITradeData[] = transactionData.transactions.filter((ta: ITradeData) => ta.currency === currency)
     const currentPrice = courseData.courses[courseData.courses.length - 1].price
 
+    return createSummary(transactionsForCurrency, currentPrice)
+}
+
+const createSummary = (transactionsForCurrency: ITradeData[], currentPrice: number) => {
     let summaryData: any = {}
     summaryData.summary = {
         baseCurrency: transactionsForCurrency[0].baseCurrency,
         cryptoCurrency: transactionsForCurrency[0].currency,
         currentPrice,
+        averagePriceThen: 0,
         amount: 0,
-        priceWhenBought: 0,
+        investment: 0,
     }
     
     transactionsForCurrency.forEach(transaction => {
+        summaryData.summary.averagePriceThen += transaction.price
         summaryData.summary.amount += transaction.amount
-        summaryData.summary.priceWhenBought += transaction.sum
+        summaryData.summary.investment += transaction.sum
     })
+
+    summaryData.summary.averagePriceThen = parseFloat((summaryData.summary.averagePriceThen / transactionsForCurrency.length).toFixed(2))
 
     summaryData.summary.currentValue = parseFloat((currentPrice * summaryData.summary.amount).toFixed(2))
     summaryData.summary.currentChange = parseFloat((summaryData.summary.currentValue - summaryData.summary.priceWhenBought).toFixed(2))
     summaryData.summary.transactionsForCurrency = transactionsForCurrency
 
     return summaryData
-}
-
-const createSummary = (transactionsForCurrency: ITradeData[], currentPrice: number) => {
-
 }
 
 export {
