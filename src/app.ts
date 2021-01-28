@@ -1,16 +1,10 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import config from 'config'
-import routes from './routes'
 import { initWebSocketClient, manageWebSocket } from './services/websocket'
 import { Connection } from './storage'
 
 
 const app = express()
-app.use(bodyParser.json())
-
-app.use('/api', routes)
-
 
 const PORT = config.get('PORT')
 const COIN_DATABASE_URL = config.get('MONGO.coinUrl') as string
