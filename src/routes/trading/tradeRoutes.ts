@@ -3,6 +3,7 @@ const tradingRouter = express.Router()
 
 import { buyCurrency } from './transactionHandler'
 import { calculateAccountValue, calculateCurrencyValue } from './accountData';
+import { start } from 'repl'
 
 tradingRouter.post('/buy', async (req, res): Promise<object> => {
     const { currency, amount, userId, baseCurrency } = req.body
@@ -35,11 +36,16 @@ tradingRouter.post('/account-balance', async (req, res): Promise<object> => {
 })
 
 tradingRouter.post('/currency-balance', async (req, res) => {
+    const startTime = new Date().getTime() / 1000
     const { userId, currency } = req.body
 
     if (userId && currency) {
         try {
             const currencyData = await calculateCurrencyValue(userId, currency)
+            const endTime = new Date().getTime() / 1000
+            const duration = endTime - startTime
+            
+            console.log(`POST request on /currency-balance resolved in ${duration.toFixed(2)}s.`);
             return res.status(200).send(currencyData)
         } catch (err) {
             console.log(err)
