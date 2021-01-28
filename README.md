@@ -29,3 +29,13 @@ You can also retrieve data about a specific account ID like:
 -   the current crypto listings of coinbase?
 -   the amount that is stored on an actual (provided) address for ETH, BTC & LTC (using etherScan and soChain in the background)
 -   the price of a provided currency (using coinbase in the background) _NOTE: XRP is currently not traded on coinbase._
+
+## TODO: Provide API Documentation:
+
+```json
+POST / api / currency - balance
+
+{
+    "userId": "72nash28asd8aSA2a"
+}
+```
