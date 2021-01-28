@@ -2,7 +2,7 @@ import express from 'express'
 import config from 'config'
 const bitcoinRouter = express.Router()
 
-import { getBalanceForAddress } from '../services/apiConnector/soChain'
+import { getBalanceForAddress } from '../../services/api-connectors/soChain'
 
 bitcoinRouter.post('/btc-balance', async (req, res): Promise<object> => {
     const { address } = req.body

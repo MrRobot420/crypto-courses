@@ -2,7 +2,7 @@ import express from 'express'
 import config from 'config'
 const litecoinRouter = express.Router()
 
-import { getBalanceForAddress } from '../services/apiConnector/soChain'
+import { getBalanceForAddress } from '../../services/api-connectors/soChain'
 
 
 litecoinRouter.post('/ltc-balance', async (req, res): Promise<object> => {

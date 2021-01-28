@@ -1,11 +1,11 @@
 import express from 'express'
 const routes = express.Router()
 
-import coinCapRouter from './coinCap'
-import coinbaseRouter from './coinbase'
-import ethereumRouter from './ethereum'
-import bitcoinRouter from './bitcoin'
-import litecoinRouter from './litecoin'
+import coinCapRouter from './prices/coincapListings'
+import coinbaseRouter from './prices/coinbase'
+import ethereumRouter from './balances/ethereum'
+import bitcoinRouter from './balances/bitcoin'
+import litecoinRouter from './balances/litecoin'
 
 import tradingRouter from './trading'
 

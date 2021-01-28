@@ -2,7 +2,7 @@ import express from 'express'
 import config from 'config'
 const ethereumRouter = express.Router()
 
-import { getBalanceForAddress } from '../services/apiConnector/etherScan'
+import { getBalanceForAddress } from '../../services/api-connectors/etherScan'
 
 
 ethereumRouter.post('/eth-balance', async (req, res): Promise<object> => {

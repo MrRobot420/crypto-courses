@@ -10,7 +10,7 @@ type balanceObject = {
 }
 
 export const getBalanceForAddress = async (address: string, coin: string): Promise<balanceObject> => {
-    const query = `${BASE_URL}${address}`
+    const query = `${BASE_URL}/get_address_balance/${coin}/${address}/0`
     try {
         const result = await axios.get(query)
         console.log(result)

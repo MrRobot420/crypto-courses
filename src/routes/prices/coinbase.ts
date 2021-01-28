@@ -1,7 +1,7 @@
 import express from 'express'
 const coinbaseRouter = express.Router()
 
-import { getBuyPrice } from '../services/apiConnector/coinbase'
+import { getBuyPrice } from '../../services/api-connectors/coinbase'
 
 coinbaseRouter.post('/currency-price', async (req, res): Promise<object> => {
     const { currencyPair } = req.body
