@@ -1,99 +1,31 @@
-# Documentation for this Crypto Analysis API:
+# Information about this project
 
-## Used Resources:
+## Main Components:
 
-### 1. Coin Market Cap (API)
+-   Websockets
+-   Database
+-   API
 
-https://pro.coinmarketcap.com/account
-and
-https://coinmarketcap.com/api/documentation/v1/
+### Websockets
 
-Endpoints:
+This backend opens websockets to bitstamp.com in order to listen on current trades for the 5 cryptocurrencies that can be traded there:
+BTC, BCH, ETH, LTC and XRP.
 
-```
-"COIN_CAP_BASE_URL": "https://pro-api.coinmarketcap.com/v1"
-```
+Everytime a trade was made, the course of that transaction data will be stored to a database.
 
-### 2. Etherscan.io
+### Database
 
-https://api.etherscan.io/api
+MongoDB Atlas is used for this project.
+The Database keeps track of historical data (as far as it did take note of those prices aka was "online" at this moment in time).
 
-some example addresses:
+### API
 
-```
-0x9dd134d14d1e65f84b706d6f205cd5b1cd03a46b
-Result: 2245289561857968669
-```
+The API is a second server that listens on incoming requests on port 5000.
+Via this interface, it is possible to "trade" a selected currency at its current price (newest price in the database).
+You can also retrieve data about a specific account ID like:
 
-```
-0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359
-Result: 4595456374254502385669
-```
-
-```
-0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae
-Result: 459838634268989921207998
-```
-
-### RATIO:
-
-```
-1000000000000000000      =       1.00000... ETH
-2245289561857968669      =       2.24589... ETH
-4595456374254502385669   =   4,595.46374... ETH
-459838634268989921207998 = 459,838.63426... ETH
-```
-
----
-
-# Live Courses:
-
-### Better Option:
-
-wss://ws.bitstamp.net
-
-USE WEBSOCKETS!!
-
----
-
-### Alternative: HTTP Calls to bitstamp.net ----- API
-
-#### WARNING:
-
-REQUEST LIMITS:
-Do not make more than 8000 requests per 10 minutes or we will ban your IP address. For real time data please refer to the websocket API.
-
-#### EUR
-
-```
-# Ripple
-https://www.bitstamp.net/api/v2/ticker/xrpeur
-```
-
-```
-# Bitcoin
-https://www.bitstamp.net/api/v2/ticker/btceur
-```
-
-```
-# Litecoin
-https://www.bitstamp.net/api/v2/ticker/ltceur
-```
-
-```
-# Ethereum
-https://www.bitstamp.net/api/v2/ticker/etheur
-```
-
-```
-# BTC-Cash
-https://www.bitstamp.net/api/v2/ticker/bcheur
-```
-
-#### USD
-
-urlXRP_dollar = "https://www.bitstamp.net/api/v2/ticker/xrpusd" # Ripple
-urlBTC_dollar = "https://www.bitstamp.net/api/v2/ticker/btcusd" # Bitcoin
-urlLTC_dollar = "https://www.bitstamp.net/api/v2/ticker/ltcusd" # Litecoin
-urlETH_dollar = "https://www.bitstamp.net/api/v2/ticker/ethusd" # Ethereum
-urlBCH_dollar = "https://www.bitstamp.net/api/v2/ticker/bchusd" # BTC-Cash
+-   the balance of a specific crypto currency + all of the transactions of that currency
+-   the total account balance with all transactions
+-   the current crypto listings of coinbase?
+-   the amount that is stored on an actual (provided) address for ETH, BTC & LTC (using etherScan and soChain in the background)
+-   the price of a provided currency (using coinbase in the background) _NOTE: XRP is currently not traded on coinbase._
