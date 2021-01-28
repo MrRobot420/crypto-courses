@@ -13,9 +13,6 @@ export const getBalanceForAddress = async (address: string, coin: string): Promi
     const query = `${BASE_URL}/get_address_balance/${coin}/${address}/0`
     try {
         const result = await axios.get(query)
-        console.log(result)
-        
-        // result.data.result = formatEtherResponse(result.data.result)
         return result.data
     } catch (err) {
         console.log(err)
