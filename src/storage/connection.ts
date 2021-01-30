@@ -1,4 +1,4 @@
-import { connect } from 'mongoose'
+import { connect, set } from 'mongoose'
 
 class Connection  {
     constructor(url: string) {
@@ -9,8 +9,9 @@ class Connection  {
         connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
             console.log('Database connection successful.')
         }).catch(err => {
-            console.log('Database connection error.');
+            console.log('Database connection error.')
         })
+        // set('debug', true)
     }
 }
 
