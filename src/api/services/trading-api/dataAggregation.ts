@@ -2,15 +2,15 @@ import { ITradeData } from '../../../storage/models/tradeData'
 
 const assembleAccountInformation = (transactionData: any) => {
     const accountInformation = {
-        transactionData: [] as ITradeData[],
+        baseCurrency: '',
         value: 0,
-        baseCurrency: ''
+        transactionData: [] as ITradeData[],
     }
 
     transactionData.transactions.forEach((ta: ITradeData) => {
-        accountInformation.transactionData.push(ta)
         accountInformation.value += ta.sum
         accountInformation.baseCurrency = ta.baseCurrency
+        accountInformation.transactionData.push(ta)
     })
 
     return accountInformation
