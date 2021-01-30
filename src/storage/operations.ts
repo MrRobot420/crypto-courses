@@ -34,8 +34,8 @@ const saveTransaction = async (userId: string, tradeData: ITradeData) => {
             const currentData = response[0]
             const previousPurchases = currentData.transactions
             previousPurchases.push(tradeData)
-            const updateResponse = await userTradeModel.findOneAndUpdate({ userId }, { transactions: previousPurchases })
-            if (updateResponse !== null) console.log(`Updated ${userId}'s transactions.\n`);
+            const updateResponse = await userTradeModel.findOneAndUpdate({ userId }, { transactions: previousPurchases }, { useFindAndModify: false })
+            if (updateResponse !== null) console.log(`\nUpdated ${userId}'s transactions.`);
         } else {
             await userTradeModel.create({ userId, transactions: [ tradeData ]})
         }
