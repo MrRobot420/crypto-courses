@@ -3,5 +3,6 @@ import { saveData } from '../fileWriter';
 
 export const handleDataRetrieval = async () => {
     const data = await fetchLatestCryptoListings()
-    saveData(data)
+    // saveData(data)
+    return data
 }

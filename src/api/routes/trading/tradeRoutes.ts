@@ -1,15 +1,20 @@
 import express from 'express'
 const tradingRouter = express.Router()
 
-import { buyCurrency } from '../../services/trading/transactionHandler'
-import { calculateAccountValue, calculateCurrencyValue } from '../../services/trading/accountData';
+import { buyCurrency } from '../../services/trading-api/transactionHandler'
+import { calculateAccountValue, calculateCurrencyValue } from '../../services/trading-api/accountData';
 
 tradingRouter.post('/buy', async (req, res): Promise<object> => {
+    const startTime = new Date().getTime() / 1000
     const { currency, amount, userId, baseCurrency } = req.body
 
     if (currency && userId && amount && baseCurrency) {
         try {
             const confirmationData = await buyCurrency(currency, amount, userId, baseCurrency)
+            const endTime = new Date().getTime() / 1000
+            const duration = endTime - startTime
+
+            console.log(`POST request on /buy resolved in ${duration.toFixed(2)}s.`);
             return res.status(200).send(confirmationData)
         } catch (err) {
             console.log(err)
@@ -20,11 +25,16 @@ tradingRouter.post('/buy', async (req, res): Promise<object> => {
 })
 
 tradingRouter.post('/account-balance', async (req, res): Promise<object> => {
+    const startTime = new Date().getTime() / 1000
     const { userId } = req.body
 
     if (userId) {
         try {
             const confirmationData = await calculateAccountValue(userId)
+            const endTime = new Date().getTime() / 1000
+            const duration = endTime - startTime
+
+            console.log(`POST request on /account-balance resolved in ${duration.toFixed(2)}s.`)
             return res.status(200).send(confirmationData)
         } catch (err) {
             console.log(err)
@@ -44,7 +54,7 @@ tradingRouter.post('/currency-balance', async (req, res) => {
             const endTime = new Date().getTime() / 1000
             const duration = endTime - startTime
             
-            console.log(`POST request on /currency-balance resolved in ${duration.toFixed(2)}s.`);
+            console.log(`POST request on /currency-balance resolved in ${duration.toFixed(2)}s.`)
             return res.status(200).send(currencyData)
         } catch (err) {
             console.log(err)
