@@ -16,3 +16,15 @@ Everytime a trade was made, the course of that transaction data will be stored t
 
 MongoDB Atlas is used for this project.
 The Database keeps track of historical data (as far as it did take note of those prices aka was "online" at this moment in time).
+
+# Docker
+
+To use this project with docker, simply do something like:
+
+```bash
+docker build -t crypto-cource-crawler:0.1 .
+```
+
+```bash
+docker run crypto-cource-crawler:0.1
+```
