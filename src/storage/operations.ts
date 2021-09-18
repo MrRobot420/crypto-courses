@@ -6,23 +6,27 @@ const getCourseData = async (currency: string): Promise<ICryptoDoc> => {
         const response = await cryptoModel.findOne({ currency })
         return response
     } catch (err) {
-        console.log(err)
+        console.log('Error while trying to get mongoDB course data: ', err)
     }
     return await cryptoModel.find({ currency })
 }
 
 const saveCourse = async (currency: string, price: number, time: string) => {
     const course = { price, date: time, marketplace: 'bitstamp' }
-    const response = await cryptoModel.find({ currency })
-    
-    if (response) {
-        const currentData: ICryptoDoc = response[0]
-        const previousCourses = currentData.courses
-        previousCourses.push(course)
-        const updateResponse = await cryptoModel.findOneAndUpdate({ currency }, { courses: previousCourses }, { useFindAndModify: false })
-        if (updateResponse !== null) console.log(`Updated ${currency} course data.\n`)
-    } else {
-        await cryptoModel.create({currency, courses: [ course ]})
+    try {
+        const response = await cryptoModel.find({ currency })
+        
+        if (response) {
+            const currentData: ICryptoDoc = response[0]
+            const previousCourses = currentData.courses
+            previousCourses.push(course)
+            const updateResponse = await cryptoModel.findOneAndUpdate({ currency }, { courses: previousCourses }, { useFindAndModify: false })
+            if (updateResponse !== null) console.log(`Updated ${currency} course data.\n`)
+        } else {
+            await cryptoModel.create({currency, courses: [ course ]})
+        }
+    } catch(err) {
+        console.log('Error while trying to save mongoDB course data: ', err)
     }
 }
 
