@@ -16,13 +16,14 @@ const saveCourse = async (currency: string, price: number, time: string) => {
     try {
         const response = await cryptoModel.find({ currency })
         
-        if (response) {
+        if (response.length !== 0) {
             const currentData: ICryptoDoc = response[0]
             const previousCourses = currentData.courses
             previousCourses.push(course)
             const updateResponse = await cryptoModel.findOneAndUpdate({ currency }, { courses: previousCourses }, { useFindAndModify: false })
             if (updateResponse !== null) console.log(`Updated ${currency} course data.\n`)
         } else {
+            console.warn(`No course data found for currency: ${currency} - creating it...`)
             await cryptoModel.create({currency, courses: [ course ]})
         }
     } catch(err) {

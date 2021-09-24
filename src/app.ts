@@ -7,7 +7,7 @@ import { Connection } from './storage'
 const app = express()
 
 const PORT = config.get('PORT')
-const COIN_DATABASE_URL = config.get('MONGO.coinUrl') as string
+const COIN_DATABASE_URL = config.get('MONGO.localUrl') as string
 
 app.listen(PORT, () => {
     console.log(`server started on port: ${PORT}`)
