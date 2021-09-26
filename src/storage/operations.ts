@@ -1,5 +1,5 @@
 import { cryptoModel } from './index'
-import ICryptoDoc from './models/cryptoDoc'
+import { ICryptoDoc } from '../types'
 
 const getCourseData = async (currency: string): Promise<ICryptoDoc> => {
     try {

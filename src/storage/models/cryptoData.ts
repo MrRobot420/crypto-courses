@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import ICryptoDoc from './cryptoDoc'
+import { ICryptoDoc } from '../../types'
 
 const cryptoSchema = new Schema({
     lastUpdated: { type: String },
