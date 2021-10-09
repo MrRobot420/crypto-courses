@@ -30,5 +30,9 @@ app.listen(PORT, () => {
     manageWebSocket(webSocketUSDT, 'usdteur')
     const webSocketUNI = initWebSocketClient('wss://ws.bitstamp.net/')
     manageWebSocket(webSocketUNI, 'unieur')
+    const webSocketXLM = initWebSocketClient('wss://ws.bitstamp.net/')
+    manageWebSocket(webSocketXLM, 'xlmeur')
+    const webSocketMKR = initWebSocketClient('wss://ws.bitstamp.net/')
+    manageWebSocket(webSocketMKR, 'mkreur')
     
 })
