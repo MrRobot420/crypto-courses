@@ -30,6 +30,15 @@ const manageWebSocket = (ws: WebSocket, currency: string) => {
                 saveCourse(currencyName, currentPrice, timeOfTrade)
                 lastPrice = currentPrice
             }
+        } else if (tradeData.event === 'bts:request_reconnect') {
+            console.log('reconnect_request received: ', receivedData.toString())
+            console.log(`re-opened ${currency} connection\n`)
+            ws.send(JSON.stringify({
+                "event": "bts:subscribe",
+                "data": {
+                    "channel": `live_trades_${currency}`
+                }
+            }))
         }
     })
 }
