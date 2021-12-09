@@ -1,12 +1,7 @@
-import express from 'express'
 import config from 'config'
 import { initWebSocketClient, manageWebSocket } from './services/websocket'
 import { Connection } from './storage'
 
-
-const app = express()
-
-const PORT = config.get('PORT')
 const COIN_DATABASE_URL = config.get('MONGO.localUrl') as string
 
 const coins = [
@@ -31,12 +26,9 @@ const coins = [
     'sushi'
 ]
 
-app.listen(PORT, () => {
-    console.log(`server started on port: ${PORT}`)
-    new Connection(COIN_DATABASE_URL)
+new Connection(COIN_DATABASE_URL)
 
-    coins.forEach(coin => {
-        const ws = initWebSocketClient('wss://ws.bitstamp.net/')
-        manageWebSocket(ws, `${coin}eur`)
-    })
+coins.forEach(coin => {
+    const ws = initWebSocketClient('wss://ws.bitstamp.net/')
+    manageWebSocket(ws, `${coin}eur`)
 })

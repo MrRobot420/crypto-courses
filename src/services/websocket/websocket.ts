@@ -26,7 +26,7 @@ const manageWebSocket = (ws: WebSocket, currency: string) => {
             if (currentPrice !== lastPrice) {
                 const currencyName = currency.split('eur')[0].toUpperCase()
                 const timeOfTrade = data.timestamp
-                console.log(`${currencyName} Price: \t${currentPrice.toFixed(2)} €`)
+                console.log(`Detected transaction of ${currencyName} for: \t${currentPrice.toFixed(2)} €`)
                 saveCourse(currencyName, currentPrice, timeOfTrade)
                 lastPrice = currentPrice
             }

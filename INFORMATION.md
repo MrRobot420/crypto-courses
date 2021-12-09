@@ -1,6 +1,6 @@
 # Documentation for this Crypto Analysis API:
 
-## Used Resources:
+## Possible Resources to use:
 
 ### 1. Coin Market Cap (API)
 
