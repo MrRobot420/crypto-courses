@@ -4,11 +4,11 @@ import { ICryptoDoc } from '../types'
 const getCourseData = async (currency: string): Promise<ICryptoDoc> => {
     try {
         const response = await cryptoModel.findOne({ currency })
-        return response
+        return response!
     } catch (err) {
         console.log('Error while trying to get mongoDB course data: ', err)
+        return {} as ICryptoDoc
     }
-    return await cryptoModel.find({ currency })
 }
 
 const saveCourse = async (currency: string, price: number, time: string) => {
