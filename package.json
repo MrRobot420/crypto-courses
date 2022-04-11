@@ -1,12 +1,12 @@
 {
-  "name": "crypto-analysis-backend",
+  "name": "crypto-courses",
   "version": "1.0.0",
   "description": "API",
   "main": "app.ts",
   "scripts": {
     "tsc": "tsc",
     "dev": "NODE_ENV=development nodemon dist/src/app.js",
-    "start": "NODE_ENV=production node dist/src/app.js"
+    "start": "node dist/src/app.js"
   },
   "author": "Maximilian Karl",
   "license": "ISC",

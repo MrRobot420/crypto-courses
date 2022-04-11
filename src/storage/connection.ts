@@ -6,7 +6,7 @@ class Connection  {
     }
 
     establishConnection(url: string) {
-        connect(url, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+        connect(url).then(() => {
             console.log('Database connection successful.')
         }).catch(err => {
             console.log('Database connection error.')

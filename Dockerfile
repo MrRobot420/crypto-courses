@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package.json .
 
 # Install all dependencies (including typescript)
-RUN npm install
+RUN npm install && npm install typescript -g
 
 # Add all other source code to work dir
 ADD . /usr/src/app
@@ -17,4 +17,3 @@ RUN npm run tsc
 
 # Start the node.js server
 CMD [ "npm", "start" ]
-EXPOSE 8080
